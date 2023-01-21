@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+<title>Form Example</title>
+</head>
+<body class="bg-gray-200">
+<form class="mx-auto p-10 bg-white rounded-lg shadow-lg" onsubmit="return validateForm()">
+<h1 class="text-2xl font-medium mb-4 text-center">Contact Form</h1>
+<div class="mb-4">
+<label class="block text-gray-700 font-medium mb-2" for="name">Name</label>
+<input class="bg-gray-200 p-2 rounded-lg" type="text" id="name" name="name" required>
+</div>
+<div class="mb-4">
+<label class="block text-gray-700 font-medium mb-2" for="email">Email</label>
+<input class="bg-gray-200 p-2 rounded-lg" type="email" id="email" name="email" required>
+</div>
+<div class="mb-4">
+<label class="block text-gray-700 font-medium mb-2" for="phone">Phone</label>
+<input class="bg-gray-200 p-2 rounded-lg" type="tel" id="phone" name="phone" required>
+</div>
+<div class="mb-4">
+<label class="block text-gray-700 font-medium mb-2" for="gender">Gender</label>
+<div>
+<input type="radio" id="male" name="gender" value="male" required>
+<label class="ml-2" for="male">Male</label>
+</div>
+<div class="ml-4">
+<input type="radio" id="female" name="gender" value="female" required>
+<label class="ml-2" for="female">Female</label>
+</div>
+</div>
+<div class="mb-4">
+<label class="block text-gray-700 font-medium mb-2" for="age">Age</label>
+<select class="bg-gray-200 p-2 rounded-lg" id="age" name="age" required>
+<option value="18-25">18-25</option>
+<option value="26-35">26-35</option>
+<option value="36-45">36-45</option>
+<option value="46+">46+</option>
+</select>
+</div>
+<div class="mb-4">
+<label class="block text-gray-700 font-medium mb-2" for="comments">Comments</label>
+<textarea class="bg-gray-200 p-2 rounded-lg" id="comments" name="comments"></textarea>
+</div>
+<div class="mb-4">
+<label class="block text-gray-700 font-medium mb-2" for="password">Password</label>
+<input class="bg-gray-200 p-2 rounded-lg" type="password" id="password" name="password" required>
+<input type="checkbox" onclick="showHidePassword()"> Show Password
+</div>
+<button class="bg-indigo-500 hover:bg-indigo-600 text-white p-2 rounded-lg">Submit</button>
+</form>
+<div id="message" class="hidden text-center text-indigo-500 mt-10"></div>
+
+<script>
+  function validateForm() {
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var phone = document.getElementById("phone").value;
+    var gender = document.getElementsByName("gender");
+    var age = document.getElementById("age").value;
+    var comments = document.getElementById("comments").value;
+    var password = document.getElementById("password").value;
+
+var isValid = true;
+
+// check if name field is filled
+if (!name) {
+  alert("Name field is required");
+  isValid = false;
+}
+
+// check if email field is filled and contains a valid email address
+if (!email || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+  alert("Email field is required and must be a valid email address");
+  isValid = false;
+}
+
+// check if phone field is filled and contains a valid phone number
+if (!phone || !/^\d{10}$/.test(phone)) {
+  alert("Phone field is required and must be in the format of XXXXXXXXXX");
+  isValid = false;
+}
+
+// check if gender is selected
+var isChecked = false;
+for (var i = 0; i < gender.length; i++) {
+  if (gender[i].checked) {
+    isChecked = true;
+    break;
+  }
+}
+if (!isChecked) {
+  alert("Gender field is required");
+  isValid = false;
+}
+
+// check if age is selected
+if (!age) {
+  alert("Age field is required");
+  isValid = false;
+}
+// check if comments is filled
+if (!comments) {
+  alert("comments field is required");
+  isValid = false;
+}
+// check if password is filled
+if (!password) {
+  alert("Password field is required");
+  isValid = false;
+}
+if (isValid) {
+  alert("Thank You for submitting the form");
+}
+return isValid;
+}
+
+function showHidePassword() {
+var x = document.getElementById("password");
+if (x.type === "password") {
+x.type = "text";
+} else {
+x.type = "password";
+}
+}
+</script>
+</body>
+</html>
